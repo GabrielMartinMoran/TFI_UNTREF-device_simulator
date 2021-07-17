@@ -3,7 +3,7 @@ from datetime import datetime
 from src.models.energy_sensor import EnergySensor
 from src.models.console_display import ConsoleDisplay
 from src.models.measure import Measure
-from src.repositories.user_repository import UserRepository
+from src.repositories.auth_repository import AuthRepository
 from src.repositories.device_repository import DeviceRepository
 import config
 
@@ -14,7 +14,7 @@ class Orchestator:
         self.sensor = EnergySensor(ref_voltage, ref_current)
         self.display = ConsoleDisplay()
         self.device = device
-        self.user_repository = UserRepository(user_secret)
+        self.user_repository = AuthRepository(user_secret)
         self.device_repository = DeviceRepository(user_secret)
         self.user = self.user_repository.get_user_data()
         self.message = ''
