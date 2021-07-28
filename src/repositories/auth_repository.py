@@ -8,5 +8,5 @@ class AuthRepository(BaseRepository):
     ENDPOINT = '/auth'
 
     def get_user_data(self) -> User:
-        response = self.get(f"{config.API_URL}{self.ENDPOINT}/get_logged_user_data")
-        return User(response['id'], response['username'], response['email'])
+        response = self.get(f"{config.API_URL}{self.ENDPOINT}/get_data")
+        return User(response['username'], response['email'])

@@ -37,14 +37,16 @@ class ConsoleDisplay():
         self.ui = self.ui.replace('{ble_id}', str(device.ble_id))
         self.ui = self.ui.replace('{username}', str(user.username))
         self.ui = self.ui.replace('{email}', str(user.email))
-        self.ui = self.ui.replace('{user_id}', str(user.id))
         self.ui = self.ui.replace('{output_message}', out_message)
+        self.ui = self.ui.replace('{turn_on_or_off}', 'Encender' if not device.turned_on else 'Apagar')
+        self.ui = self.ui.replace('{connect_or_disconnect}', 'Conectar' if not device.active else 'Desconctar')
 
     def set_ui(self, device, user, out_message):
         self.ui = deepcopy(self.default_ui)
         self.__replace_colors()
         self.__map_properties(device, user, out_message)
         self.ui += config.COLORS.END_COLOR
+        self.ui += f'\n\n{config.COLORS.YELLOW}> {config.COLORS.END_COLOR}'
 
     def draw(self):
         clear_console()

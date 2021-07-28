@@ -97,8 +97,9 @@ class DeviceSimulator:
         self.current = selected['current']
         self.created_date = str(datetime.now())
         self.user_secret = self.__get_user_secret()
-        self.device = Device(selected['name'], self.__generate_ble_id())
-        DeviceRepository(self.user_secret).create(self.device)
+        self.device = Device(selected['name'])
+        bled_id = DeviceRepository(self.user_secret).create(self.device)
+        self.device.ble_id = bled_id
         self.__store_data()
 
     def __get_user_secret(self):

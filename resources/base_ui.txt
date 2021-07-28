@@ -17,7 +17,7 @@
 
 {white}Usuario:
 
-    {yellow}👤 {username} ({blue}{user_id}{yellow})         {cyan}📧 {email}
+    {yellow}👤 {username}                {cyan}📧 {email}
 
 {white}Valores muestreados:
 
@@ -28,3 +28,7 @@
 {white}Salida:
 
 {white}> {cyan}{output_message}
+
+{white}Comandos:
+
+{yellow} 1 {white} - {cyan} {turn_on_or_off}            {yellow} 2 {white} - {cyan} {connect_or_disconnect}

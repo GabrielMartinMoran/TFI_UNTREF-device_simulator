@@ -7,6 +7,9 @@ from src.repositories.auth_repository import AuthRepository
 from src.repositories.device_repository import DeviceRepository
 import config
 
+import sys
+import select
+
 
 class Orchestator:
 
@@ -20,7 +23,7 @@ class Orchestator:
         self.message = ''
 
     def loop(self):
-        while(True):
+        while True:
             measure = Measure(
                 self.sensor.get_voltage(),
                 self.sensor.get_current(),
@@ -35,6 +38,14 @@ class Orchestator:
             self.display.set_ui(self.device, self.user, self.message)
             self.display.draw()
             time.sleep(config.TIME_BETWEEN_MEASUREMENTS)
+
+            user_input = select.select([sys.stdin, ], [], [], 0.0)[0]
+            if user_input:
+                print("Have data!")
+                while (True):
+                    time.sleep(config.TIME_BETWEEN_MEASUREMENTS)
+            else:
+                print("No data")
 
     def __get_timestamp(self):
         return int(datetime.now().timestamp())

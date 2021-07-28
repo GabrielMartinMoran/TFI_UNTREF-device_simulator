@@ -1,5 +1,5 @@
 class Device:
-    def __init__(self, name, ble_id, active=True, turned_on=False):
+    def __init__(self, name, ble_id=None, active=True, turned_on=False):
         self.name = name
         self.ble_id = ble_id
         self.last_measure = None
@@ -9,9 +9,9 @@ class Device:
     def to_json(self):
         return {
             'name': self.name,
-            'bleId': self.ble_id,
+            'ble_id': self.ble_id,
             'active': self.active,
-            'turnedOn': self.turned_on
+            'turned_on': self.turned_on
         }
 
     def set_last_measure(self, measure):
@@ -19,4 +19,5 @@ class Device:
 
     @staticmethod
     def from_json(json_data):
-        return Device(json_data['name'], json_data['bleId'], active=json_data['active'], turned_on=json_data['turnedOn'])
+        return Device(json_data['name'], json_data['ble_id'], active=json_data['active'],
+                      turned_on=json_data['turned_on'])
