@@ -10,6 +10,7 @@ export class Select extends ReactiveComponent {
 
     constructor(name, placeholder, elements, displayFunction, onChange = null) {
         super(onChange);
+        this._id = name;
         this._name = name;
         this._placeholder = placeholder;
         this._elements = elements;
@@ -25,7 +26,7 @@ export class Select extends ReactiveComponent {
             `;
         }
         return /*html*/ `
-        <select class="select" id="${this._name}" name="${this._name}" onchange="${this._getChangeEventHandler()}">
+        <select class="select" id="${this._id}" name="${this._name}" onchange="${this._getChangeEventHandler()}">
         <option class="selectOption" value="-1" disabled selected>${this._placeholder}</option>
         ${options}
         </select>
@@ -51,6 +52,11 @@ export class Select extends ReactiveComponent {
     _onValueChange() {
         const value = parseInt(document.getElementById(this._name).value);
         if (value == -1) return;
-        this._onChange(this._elements[value]);
+        this.setValue(this._elements[value]);
+    }
+
+    setValue(value) {
+        super.setValue(value);
+        document.getElementById(this._id).value = this._elements.indexOf(value);
     }
 }

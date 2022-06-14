@@ -1,10 +1,11 @@
 import { UUID4Generator } from '../utils/uuid4-generator.js';
-import { ViewElement } from '../view-element.js';
+import { Component } from '../component.js';
 
-export class ReactiveComponent extends ViewElement {
+export class ReactiveComponent extends Component {
 
     _onChange = null;
     _function_name = null;
+    _value = null;
 
     constructor(onChange=null) {
         super();
@@ -23,6 +24,15 @@ export class ReactiveComponent extends ViewElement {
 
     _getChangeEventHandler() {
         return `${this._function_name}()`;
+    }
+
+    setValue(value) {
+        this._value = value;
+        if (this._onChange) this._onChange(value);
+    }
+
+    getValue(value) {
+        return this._value;
     }
 
 

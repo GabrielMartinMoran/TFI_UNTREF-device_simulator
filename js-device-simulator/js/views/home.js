@@ -1,10 +1,10 @@
-import { ViewElement } from '../view-element.js';
+import { Component } from '../component.js';
 
-export class Home extends ViewElement {
+export class Home extends Component {
 
     _getElementHtml() {
         return /*html*/`
-        <h2>Home</h2>
+        <h2>Inicio</h2>
         `;
     }
 }

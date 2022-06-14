@@ -20,3 +20,5 @@ export const Pallete = {
 }
 
 export const WEB_API_URL = 'http://localhost:5000/api'
+
+export const MEASURES_DECIMAL_PRESICION = 3;

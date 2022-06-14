@@ -1,8 +1,8 @@
-import { ViewElement } from '../view-element.js';
+import { Component } from '../component.js';
 import { UUID4Generator } from '../utils/uuid4-generator.js';
 import { Pallete } from '../config.js';
 
-export class Button extends ViewElement {
+export class Button extends Component {
 
     _name = null;
     _type = null;
@@ -12,6 +12,7 @@ export class Button extends ViewElement {
 
     constructor(name, type, child, onClick) {
         super();
+        this._id = name;
         this._name = name;
         this._type = type;
         this._child = child;
@@ -25,12 +26,12 @@ export class Button extends ViewElement {
     }
 
     _renderChild() {
-        return this._child instanceof ViewElement ? this._child.render() : this._child;
+        return this._child instanceof Component ? this._child.render() : this._child;
     }
 
     _getElementHtml() {
         return /*html*/ `
-        <button type="button" id="${this._name}" name="${this._name}" class="btn" onClick="${this._function_name}()">${this._renderChild()}</button>
+        <button type="button" id="${this._id}" name="${this._name}" class="btn" onClick="${this._function_name}()">${this._renderChild()}</button>
         `;
     }
 

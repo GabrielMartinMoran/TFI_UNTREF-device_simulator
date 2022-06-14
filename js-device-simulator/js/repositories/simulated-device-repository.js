@@ -3,6 +3,7 @@ import { SimulatedDevice } from '../models/simulated-device.js';
 export class SimulatedDeviceRepository {
 
     _storage_key = 'simulatedDevices';
+    _subscribedCallbacks = [];
 
     _getStorageContent() {
         const strData = localStorage.getItem(this._storage_key);
@@ -32,5 +33,25 @@ export class SimulatedDeviceRepository {
         const models = this.getAll();
         models.push(simulatedDevice);
         this._setStorageContent(models);
+        this.notifySubscribers(models);
+    }
+
+    update(simuatedDevice) {
+        const models = this.getAll();
+        const found = models.find(x => x.getId() === simuatedDevice.getId())
+        if (!found) throw `Simulated device with id '${simuatedDevice.getId()}' was not found!'`;
+        models[models.indexOf(found)] = simuatedDevice;
+        this._setStorageContent(models);
+        this.notifySubscribers(models);
+    }
+
+    subscribe(callback) {
+        this._subscribedCallbacks.push(callback);
+    }
+
+    notifySubscribers(simulatedDevices) {
+        for (const callback of this._subscribedCallbacks) {
+            callback(simulatedDevices);
+        }
     }
 }

@@ -6,8 +6,9 @@ export class Input extends ReactiveComponent {
     _type = null;
     _placeholder = null;
 
-    constructor(name, type, placeholder, onChange=null) {
+    constructor(name, type, placeholder, onChange = null) {
         super(onChange);
+        this._id = name;
         this._name = name;
         this._type = type;
         this._placeholder = placeholder;
@@ -15,7 +16,7 @@ export class Input extends ReactiveComponent {
 
     _getElementHtml() {
         return /*html*/ `
-        <input type="${this._type}" id="${this._name}" class="textInput" name="${this._name}" placeholder="${this._placeholder}" onchange="${this._getChangeEventHandler()}">
+        <input type="${this._type}" id="${this._id}" class="textInput" name="${this._name}" placeholder="${this._placeholder}" onchange="${this._getChangeEventHandler()}">
         `;
     }
 
@@ -32,11 +33,27 @@ export class Input extends ReactiveComponent {
             .textInput::placeholder {
                 color: ${Pallete.TEXT_SHADOW};
             }
+
+            /* Autofill */
+            input:-webkit-autofill,
+            input:-webkit-autofill:hover, 
+            input:-webkit-autofill:focus, 
+            input:-webkit-autofill:active {
+                -webkit-box-shadow: 0 0 0 30px ${Pallete.ELEMENTS} inset !important;
+            }
+            input:-webkit-autofill {
+                -webkit-text-fill-color: ${Pallete.TEXT} !important;
+            }
         `;
     }
 
     _onValueChange() {
         const value = document.getElementById(this._name).value;
-        this._onChange(value);
+        this.setValue(value);
+    }
+
+    setValue(value) {
+        super.setValue(value);
+        document.getElementById(this._id).value = value;
     }
 }

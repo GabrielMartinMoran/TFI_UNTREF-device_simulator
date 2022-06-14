@@ -1,17 +1,24 @@
-import { ViewElement } from './view-element.js';
+import { Component } from './component.js';
+import { Pallete } from './config.js';
 
-export class AppMenu extends ViewElement {
+export class AppMenu extends Component {
     _elementId = 'appMenu';
 
     _getElementHtml() {
         return /*html*/`
-        <h2>App menu</h2>
-        <ul>
-            <li><a href="#/home">Inicio</a></li>
-            <li><a href="#/add-device">Agregar dispositivo</a></li>
-            <li><a href="#/devices">Dispositivos</a></li>
-            <li><a href="#/device-simulator">Simulador (Quitar del menu)</a></li>
-        </ul>
+        <h2>Simulador de dispositivos</h2>
+        <a href="#/home" class="menuItem">Inicio</a>
+        <a href="#/add-device" class="menuItem">Agregar dispositivo</a>
+        <a href="#/devices" class="menuItem">Dispositivos</a>
+        `;
+    }
+
+    _getElementCSS() {
+        return /*css*/`
+            .menuItem {
+                display: block;
+                margin-bottom: 1rem;
+            }
         `;
     }
 }

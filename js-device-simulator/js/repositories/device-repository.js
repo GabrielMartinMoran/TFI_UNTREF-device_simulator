@@ -1,23 +1,20 @@
-import { DEVICES } from "../data/devices.js";
+import { WebApiRepository } from './web-api-repository.js';
 
-export class DeviceRepository {
-    
-    _devices = [];
-    
-    constructor() {
-        this._loadDevices();
+export class DeviceRepository extends WebApiRepository {
+
+    _controller = '/devices';
+
+    async create(deviceName, userSecret) {
+        return await this._post(`${this._controller}/create`, {
+            'name': deviceName
+        }, userSecret);
     }
 
-    _loadDevices() {
-        // Slice to clone array
-        this._devices = DEVICES.slice();
-    }
-
-    getAll() {
-        return this._devices;
-    }
-
-    get(id) {
-        return this._devices.find(x => x.id === id);
+    async addMeasure(deviceId, measure, userSecret) {
+        return await this._post(`${this._controller}/add_measure/${deviceId}`, {
+            'timestamp': measure.getTimestamp(),
+            'voltage': measure.getVoltage(),
+            'current': measure.getCurrent()
+        }, userSecret);
     }
 }

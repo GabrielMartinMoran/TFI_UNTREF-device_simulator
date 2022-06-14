@@ -1,8 +1,8 @@
 import { AppMenu } from './app-menu.js';
-import { ViewElement } from './view-element.js';
+import { Component } from './component.js';
 import { Pallete } from './config.js';
 
-export class Index extends ViewElement {
+export class Index extends Component {
 
     _appMenu = null;
 
@@ -54,12 +54,12 @@ export class Index extends ViewElement {
             }
             
             a {
-                color: ${Pallete.TEXT};
+                color: ${Pallete.TEXT_SHADOW};
                 text-decoration: none;
             }
             
             a:hover {
-                color: ${Pallete.TEXT_SHADOW};
+                color: ${Pallete.TEXT};
             }
             
             .container {
